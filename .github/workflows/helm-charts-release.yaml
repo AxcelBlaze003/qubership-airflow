@@ -164,11 +164,6 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Make script executable and run
-        run: |
-          chmod +x ./.github/replace_chart.sh
-          ./.github/replace_chart.sh "${{ inputs.release }}"
-
       - name: Run chart-releaser
          #continue-on-error: true
         uses: netcracker/chart-releaser-action@main
