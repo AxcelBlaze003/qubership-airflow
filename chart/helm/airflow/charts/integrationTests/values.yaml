@@ -11,7 +11,7 @@ serviceAccount:
   name: "airflow-integration-tests"
 
 image: 
-  repository: ghcr.io/netcracker/qubership-airflow-integration-tests
+  repository: ghcr.io/axcelblaze003/qubership-airflow-integration-tests
   tag: main
 
 airflowHost: "airflow-api-server"

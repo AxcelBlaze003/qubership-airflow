@@ -90,7 +90,7 @@ airflowVersion: "3.0.2"
 # Images
 images:
   airflow:
-    repository: ghcr.io/netcracker/qubership-airflow
+    repository: ghcr.io/axcelblaze003/qubership-airflow
     tag: main
     # Specifying digest takes precedence over tag.
     digest: ~
@@ -111,7 +111,7 @@ images:
     tag: ~
     pullPolicy: IfNotPresent
   flower:
-    repository: ghcr.io/netcracker/qubership-airflow
+    repository: ghcr.io/axcelblaze003/qubership-airflow
     tag: main
     pullPolicy: IfNotPresent
   statsd:
@@ -3234,7 +3234,7 @@ certManagerInegration:
 
 statusProvisioner:
   enabled: true
-  dockerImage: ghcr.io/netcracker/qubership-deployment-status-provisioner:0.1.4
+  dockerImage: ghcr.io/axcelblaze003/qubership-deployment-status-provisioner:0.1.4
   lifetimeAfterCompletion: 600
   podReadinessTimeout: 300
   integrationTestsTimeout: 300
