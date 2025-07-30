@@ -20,5 +20,5 @@ FROM scratch
 # Transfer
 COPY --from=builder /app/chart /chart
 COPY --from=builder /app/docs /docs
-COPY --from=builder /app/tests_dags_image/dags/dr_sync_folderv2.py /dr_sync_folderv2.py
-COPY --from=builder /app/tests_dags_image/dags /dags
+COPY --from=builder /app/dr_sync_folderv2.py /dr_sync_folderv2.py
+COPY --from=builder /app/dags /dags
