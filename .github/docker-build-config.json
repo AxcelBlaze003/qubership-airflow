@@ -1,0 +1,35 @@
+{
+  "components": [
+    {
+      "name": "qubership-airflow",
+      "file": "docker/Dockerfile",
+      "context": "."
+    },
+    {
+      "name": "qubership-airflow-transfer",
+      "file": "docker-transfer/Dockerfile",
+      "context": "."
+    },
+    {
+      "name": "qubership-airflow-rclone",
+      "file": "rclone-image/Dockerfile",
+      "context": "."
+    },
+    {
+      "name": "qubership-airflow-sm",
+      "file": "site-manager/docker/Dockerfile",
+      "context": "site-manager"
+    },
+    {
+      "name": "qubership-airflow-integration-tests",
+      "file": "integration-tests/tests/docker/Dockerfile",
+      "context": "integration-tests/tests"
+    },
+    {
+      "name": "qubership-airflow-tests-dags-image",
+      "file": "tests_dags_image/Dockerfile",
+      "context": "."
+    }
+  ],
+  "platforms": "linux/amd64, linux/arm64"
+}

@@ -6,7 +6,7 @@ labels:
   app.kubernetes.io/part-of: 'airflow'
 
 image:
-  repository: ghcr.io/netcracker/qubership-airflow-site-manager
+  repository: ghcr.io/netcracker/qubership-airflow-sm
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: main

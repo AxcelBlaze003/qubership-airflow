@@ -1,0 +1,16 @@
+---
+
+charts:
+  - name: qubership-airflow
+    chart_file: chart/helm/airflow/Chart.yaml
+    values_file: chart/helm/airflow/release-images.yaml
+    image:
+      - ghcr.io/netcracker/qubership-airflow:${release}
+      - ghcr.io/netcracker/qubership-airflow-transfer:${release}
+      - ghcr.io/netcracker/qubership-airflow-rclone:${release}
+      - ghcr.io/netcracker/qubership-airflow-sm:${release}
+      - ghcr.io/netcracker/qubership-airflow-integration-tests:${release}
+      - ghcr.io/netcracker/qubership-airflow-tests-dags-image:${release}
+      - ghcr.io/netcracker/qubership-deployment-status-provisioner:${sp_release}
+      - quay.io/prometheus/statsd-exporter:${statsd_exporter_release}
+      - registry.k8s.io/git-sync/git-sync:${git_sync_release}

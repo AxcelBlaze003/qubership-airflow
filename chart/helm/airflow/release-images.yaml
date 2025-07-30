@@ -1,0 +1,10 @@
+qubership-airflow: ghcr.io/netcracker/qubership-airflow:main
+qubership-airflow-transfer: ghcr.io/netcracker/qubership-airflow-transfer:main
+qubership-airflow-rclone: ghcr.io/netcracker/qubership-airflow-rclone:main
+qubership-airflow-sm: ghcr.io/netcracker/qubership-airflow-sm:main
+qubership-airflow-integration-tests: ghcr.io/netcracker/qubership-airflow-integration-tests:main
+qubership-airflow-tests-dags-image: ghcr.io/netcracker/qubership-airflow-tests-dags-image:main
+qubership-deployment-status-provisioner: ghcr.io/netcracker/qubership-deployment-status-provisioner:main
+statsd-exporter: quay.io/prometheus/statsd-exporter:latest
+git-sync: registry.k8s.io/git-sync/git-sync:latest
+
