@@ -1,10 +1,10 @@
-qubership-airflow: ghcr.io/axcelblaze003/qubership-airflow:main
-qubership-airflow-transfer: ghcr.io/axcelblaze003/qubership-airflow-transfer:main
-qubership-airflow-rclone: ghcr.io/axcelblaze003/qubership-airflow-rclone:main
-qubership-airflow-sm: ghcr.io/axcelblaze003/qubership-airflow-sm:main
-qubership-airflow-integration-tests: ghcr.io/axcelblaze003/qubership-airflow-integration-tests:main
-qubership-airflow-tests-dags-image: ghcr.io/axcelblaze003/qubership-airflow-tests-dags-image:main
-qubership-deployment-status-provisioner: ghcr.io/axcelblaze003/qubership-deployment-status-provisioner:main
-statsd-exporter: quay.io/prometheus/statsd-exporter:latest
-git-sync: registry.k8s.io/git-sync/git-sync:latest
+qubership-airflow: ghcr.io/axcelblaze003/qubership-airflow:0.0.5
+qubership-airflow-transfer: ghcr.io/axcelblaze003/qubership-airflow-transfer:0.0.5
+qubership-airflow-rclone: ghcr.io/axcelblaze003/qubership-airflow-rclone:0.0.5
+qubership-airflow-sm: ghcr.io/axcelblaze003/qubership-airflow-sm:0.0.5
+qubership-airflow-integration-tests: ghcr.io/axcelblaze003/qubership-airflow-integration-tests:0.0.5
+qubership-airflow-tests-dags-image: ghcr.io/axcelblaze003/qubership-airflow-tests-dags-image:0.0.5
+qubership-deployment-status-provisioner: ghcr.io/axcelblaze003/qubership-deployment-status-provisioner:0.1.4
+statsd-exporter: quay.io/prometheus/statsd-exporter:${statsd_exporter_release}
+git-sync: registry.k8s.io/git-sync/git-sync:${git_sync_release}
 
