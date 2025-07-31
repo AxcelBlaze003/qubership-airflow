@@ -13,7 +13,8 @@ RUN pip install --no-cache-dir ruamel.yaml && \
     python sync_util.py images chart/helm/airflow/release-images.yaml chart/helm/airflow/charts/airflow-site-manager/values.yaml && \
     python sync_util.py images chart/helm/airflow/release-images.yaml chart/helm/airflow/charts/integrationTests/values.yaml && \
     python sync_util.py chart-version chart/helm/airflow/charts/airflow-site-manager/Chart.yaml chart/helm/airflow/charts/airflow-site-manager/values.yaml && \
-    python sync_util.py chart-version chart/helm/airflow/charts/integrationTests/Chart.yaml chart/helm/airflow/charts/integrationTests/values.yaml
+    python sync_util.py chart-version chart/helm/airflow/charts/integrationTests/Chart.yaml chart/helm/airflow/charts/integrationTests/values.yaml && \
+    python sync_util.py dependencies chart/helm/airflow/Chart.yaml
 
 FROM scratch
 

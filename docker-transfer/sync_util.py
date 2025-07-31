@@ -121,6 +121,37 @@ def sync_chart_version_from_values(chart_path, values_path):
     else:
         print(f"Chart.yaml version already matches image tag: {image_tag}")
 
+def update_dependency_versions(chart_path):
+    if not os.path.exists(chart_path):
+        print(f"File not found: {chart_path}")
+        return
+
+    with open(chart_path, "r") as f:
+        chart_data = yaml.load(f)
+
+    chart_version = chart_data.get("version")
+    if not chart_version:
+        print("Chart version not found.")
+        return
+
+    updated = False
+    dependencies = chart_data.get("dependencies", [])
+    for dep in dependencies:
+        old_version = dep.get("version")
+        if old_version != chart_version:
+            print(f"Updating dependency '{dep.get('name')}' version: {old_version} → {chart_version}")
+            dep["version"] = chart_version
+            updated = True
+        else:
+            print(f"No update needed for '{dep.get('name')}', already {chart_version}")
+
+    if updated:
+        with open(chart_path, "w") as f:
+            yaml.dump(chart_data, f)
+        print(f"Updated dependency versions in {chart_path}")
+    else:
+        print("No changes made.")        
+
 
 if __name__ == "__main__":
    
@@ -138,6 +169,10 @@ if __name__ == "__main__":
         chart_file = sys.argv[2]
         values_file = sys.argv[3]
         sync_chart_version_from_values(chart_file, values_file)
+
+    elif mode == "dependencies":
+        chart_file = sys.argv[2]
+        update_dependency_versions(chart_file)    
 
     else:
         print("Invalid mode")
