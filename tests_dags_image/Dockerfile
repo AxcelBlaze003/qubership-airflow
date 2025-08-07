@@ -1,4 +1,4 @@
-ARG base_img=ghcr.io/netcracker/qubership-airflow:main
+ARG base_img=ghcr.io/axcelblaze003/qubership-airflow:main
 
 FROM $base_img
 

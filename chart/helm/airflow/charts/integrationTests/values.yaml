@@ -10,7 +10,7 @@ serviceAccount:
   create: true
   name: "airflow-integration-tests"
 
-image: "ghcr.io/netcracker/qubership-airflow-integration-tests:main"
+image: "ghcr.io/axcelblaze003/qubership-airflow-integration-tests:main"
 tags: "smoke"
 
 airflowHost: "airflow-api-server"

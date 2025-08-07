@@ -472,7 +472,7 @@ All the possible parameters are listed below.
 | Parameter                                                    | Mandatory                        | Type            | Default                                                                                | Description                                                                                                                                                                                                                 |
 |--------------------------------------------------------------|----------------------------------|-----------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `airflow-site-manager.enabled`                               | false                            | bool            | `false`                                                                                | Enables the Airflow Site Manager deployment.                                                                                                                                                                                |
-| `airflow-site-manager.image.repository`                      | false                            | string          | ghcr.io/netcracker/qubership-airflow-site-manager                                      | Docker images repository.                                                                                                                                                                                                   |
+| `airflow-site-manager.image.repository`                      | false                            | string          | ghcr.io/axcelblaze003/qubership-airflow-site-manager                                      | Docker images repository.                                                                                                                                                                                                   |
 | `airflow-site-manager.image.pullPolicy`                      | false                            | string          | `"IfNotPresent"`                                                                       | The image pull policy.                                                                                                                                                                                                      |
 | `airflow-site-manager.image.tag`                             | false                            | string          | `main`                                                                                 | This overrides the image tag.                                                                                                                                                                                               |
 | `airflow-site-manager.imagePullSecrets`                      | false                            | list            | `[]`                                                                                   | The image pull secrets.                                                                                                                                                                                                     |
@@ -2379,7 +2379,7 @@ Status Provisioner is a component for providing the overall service status.
 ```yaml
 statusProvisioner:
   enabled: true
-  dockerImage: ghcr.io/netcracker/qubership-deployment-status-provisioner:main
+  dockerImage: ghcr.io/axcelblaze003/qubership-deployment-status-provisioner:main
   lifetimeAfterCompletion: 600
   podReadinessTimeout: 300
   integrationTestsTimeout: 300
@@ -2438,7 +2438,7 @@ integrationTests:
   serviceAccount:
     create: true
     name: "airflow-integration-tests"
-  image: "ghcr.io/netcracker/qubership-airflow-integration-tests:main"
+  image: "ghcr.io/axcelblaze003/qubership-airflow-integration-tests:main"
   tags: "smoke"
   airflowHost: "airflow-api-server"
   airflowPort: 8080
