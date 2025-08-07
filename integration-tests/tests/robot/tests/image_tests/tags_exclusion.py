@@ -6,6 +6,5 @@ def check_that_parameters_are_presented(environ, *variable_names) -> bool:
 
 
 def get_excluded_tags(environ) -> list:
-    if not check_that_parameters_are_presented(environ,
-                                               'IMAGES_TO_TEST'):
-        return ['airflow_images']
+    if not check_that_parameters_are_presented(environ, "IMAGES_TO_TEST"):
+        return ["airflow_images"]

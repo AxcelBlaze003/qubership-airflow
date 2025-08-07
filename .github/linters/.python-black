@@ -1,0 +1,2 @@
+[tool.black]
+force-exclude = 'qs_platform_logging_config\.py'

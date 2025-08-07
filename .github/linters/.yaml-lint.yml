@@ -7,6 +7,10 @@
 # - .gitignore
 # - .yamlignore
 
+ignore:
+  - .github/linters/
+  - .github/workflows/super-linter.yaml
+
 rules:
   braces:
     min-spaces-inside: 1

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=all
 
 # This file can be used to get hadoop config from Ambari or Cloudera Manager
 

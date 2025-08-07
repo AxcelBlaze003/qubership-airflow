@@ -1,3 +1,5 @@
+#!/bin/bash
+
 trap "exit 0" SIGINT SIGTERM;
 
 if [ "${GIT_SYNC_MAX_SYNC_FAILURES}" = "FAIL_ON_ERROR" ];

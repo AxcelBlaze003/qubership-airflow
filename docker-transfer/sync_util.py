@@ -8,8 +8,9 @@ yaml.preserve_quotes = True
 yaml.indent(mapping=2, sequence=4, offset=2)
 
 yaml.representer.add_representer(
-    type(None), lambda self, _: self.represent_scalar('tag:yaml.org,2002:null', '~')
+    type(None), lambda self, _: self.represent_scalar("tag:yaml.org,2002:null", "~")
 )
+
 
 def parse_release_images_yaml(file_path):
     with open(file_path) as f:
@@ -22,6 +23,7 @@ def parse_release_images_yaml(file_path):
             image_name, tag = match.groups()
             image_versions[image_name] = tag
     return image_versions
+
 
 def update_node(node, image_versions):
     if isinstance(node, dict):
@@ -37,7 +39,9 @@ def update_node(node, image_versions):
                     print(f"No change needed for {repo}: already {new_tag}")
 
         if "registry" in node and "repository" in node and "tag" in node:
-            full_image = f"{node['registry'].rstrip('/')}/{node['repository'].lstrip('/')}"
+            full_image = (
+                f"{node['registry'].rstrip('/')}/{node['repository'].lstrip('/')}"
+            )
             old_tag = node["tag"]
             if full_image in image_versions:
                 new_tag = image_versions[full_image]
@@ -56,7 +60,7 @@ def update_node(node, image_versions):
                     print(f"Updating tag for {full_image}: {old_tag} → {new_tag}")
                     node["tag"] = new_tag
                 else:
-                    print(f"No change needed for {full_image}: already {new_tag}")            
+                    print(f"No change needed for {full_image}: already {new_tag}")
 
         for key, value in node.items():
             node[key] = update_node(value, image_versions)
@@ -77,6 +81,7 @@ def update_node(node, image_versions):
 
     return node
 
+
 def update_values_yaml(values_path, image_versions):
     if not os.path.exists(values_path):
         print(f"File not found: {values_path}")
@@ -91,88 +96,9 @@ def update_values_yaml(values_path, image_versions):
         yaml.dump(updated, f)
 
 
-def sync_chart_version_from_values(chart_path, values_path):
-    if not os.path.exists(chart_path):
-        print(f"Chart.yaml not found: {chart_path}")
-        return
-
-    if not os.path.exists(values_path):
-        print(f"Values.yaml not found: {values_path}")
-        return
-
-    with open(values_path, "r") as f:
-        values_data = yaml.load(f)
-
-    try:
-        image_tag = values_data["image"]["tag"]
-    except KeyError:
-        print("image.tag not found in values.yaml")
-        return
-
-    with open(chart_path, "r") as f:
-        chart_data = yaml.load(f)
-
-    old_version = chart_data.get("version")
-    if old_version != image_tag:
-        print(f"Syncing Chart.yaml version: {old_version} → {image_tag}")
-        chart_data["version"] = image_tag
-        with open(chart_path, "w") as f:
-            yaml.dump(chart_data, f)
-    else:
-        print(f"Chart.yaml version already matches image tag: {image_tag}")
-
-def update_dependency_versions(chart_path):
-    if not os.path.exists(chart_path):
-        print(f"File not found: {chart_path}")
-        return
-
-    with open(chart_path, "r") as f:
-        chart_data = yaml.load(f)
-
-    chart_version = chart_data.get("version")
-    if not chart_version:
-        print("Chart version not found.")
-        return
-
-    updated = False
-    dependencies = chart_data.get("dependencies", [])
-    for dep in dependencies:
-        old_version = dep.get("version")
-        if old_version != chart_version:
-            print(f"Updating dependency '{dep.get('name')}' version: {old_version} → {chart_version}")
-            dep["version"] = chart_version
-            updated = True
-        else:
-            print(f"No update needed for '{dep.get('name')}', already {chart_version}")
-
-    if updated:
-        with open(chart_path, "w") as f:
-            yaml.dump(chart_data, f)
-        print(f"Updated dependency versions in {chart_path}")
-    else:
-        print("No changes made.")        
-
-
 if __name__ == "__main__":
-   
-    # Modes: images, chart-version
 
-    mode = sys.argv[1]
-
-    if mode == "images":
-        releases_file = sys.argv[2]
-        values_file = sys.argv[3]
-        image_versions = parse_release_images_yaml(releases_file)
-        update_values_yaml(values_file, image_versions)
-
-    elif mode == "chart-version":
-        chart_file = sys.argv[2]
-        values_file = sys.argv[3]
-        sync_chart_version_from_values(chart_file, values_file)
-
-    elif mode == "dependencies":
-        chart_file = sys.argv[2]
-        update_dependency_versions(chart_file)    
-
-    else:
-        print("Invalid mode")
+    releases_file = sys.argv[1]
+    values_file = sys.argv[2]
+    image_versions = parse_release_images_yaml(releases_file)
+    update_values_yaml(values_file, image_versions)

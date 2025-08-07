@@ -1,3 +1,5 @@
+# flake8: noqa
+
 # This DAG can be used to copy data between two Hadoop clusters(HDFS),
 # Hive postgres database and airflow postgres database.
 

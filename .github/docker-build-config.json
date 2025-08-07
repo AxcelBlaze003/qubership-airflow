@@ -24,11 +24,6 @@
       "name": "qubership-airflow-integration-tests",
       "file": "integration-tests/tests/docker/Dockerfile",
       "context": "integration-tests/tests"
-    },
-    {
-      "name": "qubership-airflow-tests-dags-image",
-      "file": "tests_dags_image/Dockerfile",
-      "context": "."
     }
   ],
   "platforms": "linux/amd64, linux/arm64"

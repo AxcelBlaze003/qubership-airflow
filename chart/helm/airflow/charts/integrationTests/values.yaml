@@ -10,9 +10,8 @@ serviceAccount:
   create: true
   name: "airflow-integration-tests"
 
-image: 
-  repository: ghcr.io/axcelblaze003/qubership-airflow-integration-tests
-  tag: main
+image: "ghcr.io/netcracker/qubership-airflow-integration-tests:main"
+tags: "smoke"
 
 airflowHost: "airflow-api-server"
 airflowPort: 8080

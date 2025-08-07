@@ -12,7 +12,7 @@ on:
         description: 'Status Provisioner Release version'
         required: true
         type: string
-      statsd-exporter_release:
+      statsd_exporter_release:
         description: 'StatsD Exporter Release version'
         required: true
         type: string
@@ -30,7 +30,9 @@ concurrency:
   cancel-in-progress: true
 env:
   sp_release: ${{ inputs.sp_release }}
-  oauth2_proxy_release: ${{ inputs.oauth2_proxy_release }}
+  statsd_exporter_release: ${{ inputs.statsd_exporter_release }}
+  git_sync_release: ${{ inputs.git_sync_release }}
+
 jobs:
   check-tag:
     runs-on: ubuntu-latest
@@ -117,6 +119,7 @@ jobs:
         uses: netcracker/qubership-workflow-hub/actions/helm-charts-release@v1.0.3
         with:
           release-version: ${{ inputs.release }}
+          chart-version: "1.18.0-dev"
           config-file: .github/helm-charts-release-config.yaml
         env:
           ${{ insert }}: ${{ vars }}
@@ -178,7 +181,7 @@ jobs:
         uses: netcracker/chart-releaser-action@main
         with:
           charts_dir: chart/helm
-          release_name_template: "{{ .Version }}"
+          release_name_template: ${{ inputs.release }}
           skip_existing: true
           skip_upload: true
         env:

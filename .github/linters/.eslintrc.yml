@@ -11,7 +11,10 @@ plugins:
   - "@typescript-eslint"
 
 rules:
-  no-undef: 'warn'
+  no-undef: "warn"
 
 globals:
   module: "writable"
+
+ignorePatterns:
+  - ".github/linters/*"

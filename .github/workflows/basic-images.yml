@@ -67,7 +67,7 @@ jobs:
           file: ${{ matrix.component.file }}
           platforms: linux/amd64 # ToDo ,linux/arm64
           push: true
-          tags: ghcr.io/axcelblaze003/${{ matrix.component.name }}:${{ env.TAG_NAME }}
+          tags: ghcr.io/netcracker/${{ matrix.component.name }}:${{ env.TAG_NAME }}
           provenance: false
           build-args: |
             GH_ACCESS_TOKEN=${{ secrets.GH_ACCESS_TOKEN }}

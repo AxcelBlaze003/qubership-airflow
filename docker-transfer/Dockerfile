@@ -9,12 +9,9 @@ COPY tests_dags_image/dags/dr_sync_folderv2.py /app/dr_sync_folderv2.py
 COPY tests_dags_image/dags /app/dags
 
 RUN pip install --no-cache-dir ruamel.yaml && \
-    python sync_util.py images chart/helm/airflow/release-images.yaml chart/helm/airflow/values.yaml && \
-    python sync_util.py images chart/helm/airflow/release-images.yaml chart/helm/airflow/charts/airflow-site-manager/values.yaml && \
-    python sync_util.py images chart/helm/airflow/release-images.yaml chart/helm/airflow/charts/integrationTests/values.yaml && \
-    python sync_util.py chart-version chart/helm/airflow/charts/airflow-site-manager/Chart.yaml chart/helm/airflow/charts/airflow-site-manager/values.yaml && \
-    python sync_util.py chart-version chart/helm/airflow/charts/integrationTests/Chart.yaml chart/helm/airflow/charts/integrationTests/values.yaml && \
-    python sync_util.py dependencies chart/helm/airflow/Chart.yaml
+    python sync_util.py chart/helm/airflow/release-images.yaml chart/helm/airflow/values.yaml && \
+    python sync_util.py chart/helm/airflow/release-images.yaml chart/helm/airflow/charts/airflow-site-manager/values.yaml && \
+    python sync_util.py chart/helm/airflow/release-images.yaml chart/helm/airflow/charts/integrationTests/values.yaml
 
 FROM scratch
 

@@ -10,8 +10,9 @@ from flask_login import login_user
 if TYPE_CHECKING:
     pass
 
-INTERNAL_GATEWAY_URL = os.getenv("INTERNAL_GATEWAY_URL",
-                                 "http://internal-gateway-service.cloud-core:8080")
+INTERNAL_GATEWAY_URL = os.getenv(
+    "INTERNAL_GATEWAY_URL", "http://internal-gateway-service.cloud-core:8080"
+)
 
 REALM_AIRFLOW_USER = os.getenv("REALM_AIRFLOW_USER", "cloud-common")
 
@@ -22,25 +23,24 @@ def auth_current_user() -> dict[str, str | list[str] | Any] | None | Any:
     """Authenticate and set current user if Authorization header exists."""
     try:
         token = str(request.headers.get("Authorization")).split()[1]
-        print(f'API TOKEN: {token}')
-        headers = {
-            'accept': '*/*',
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        print(f"API TOKEN: {token}")
+        headers = {"accept": "*/*", "Content-Type": "application/x-www-form-urlencoded"}
 
         payload = f"token={token}"
         response = requests.post(
             f"{INTERNAL_GATEWAY_URL}"
             f"/auth/realms/{REALM_AIRFLOW_USER}/protocol/openid-connect/token/introspect",
-            headers=headers, data=payload)
+            headers=headers,
+            data=payload,
+        )
 
         if response.ok:
             user_info = response.json()
             userinfo = {
-                "username": user_info['username'],
+                "username": user_info["username"],
                 "email": f"{user_info['username']}@qubership.com",
-                "first_name": user_info['username'],
-                "last_name": user_info['username'],
+                "first_name": user_info["username"],
+                "last_name": user_info["username"],
                 "role_keys": ["airflow_admin"],
             }
             ab_security_manager = get_airflow_app().appbuilder.sm
