@@ -121,6 +121,7 @@ jobs:
           release-version: ${{ inputs.release }}
           chart-version: "1.19.0-dev"
           config-file: .github/helm-charts-release-config.yaml
+          default-tag: ${{inputs.release}}
         env:
           ${{ insert }}: ${{ vars }}
       - name: "Debug"
