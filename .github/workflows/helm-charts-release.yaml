@@ -205,7 +205,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Release-drafter"
-        uses: netcracker/release-drafter@v1.0.1
+        uses: netcracker/release-drafter@master
         with:
           config-name: release-drafter-config.yml
           publish: true
