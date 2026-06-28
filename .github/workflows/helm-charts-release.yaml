@@ -146,7 +146,7 @@ jobs:
         with:
           ref: release-${{ inputs.release }}
           download-artifact: false
-          dry-run: false
+          dry-run: true
           component: ${{ toJson(matrix.component) }}
           platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
           tags: "${{ env.IMAGE_VERSION }},latest"
