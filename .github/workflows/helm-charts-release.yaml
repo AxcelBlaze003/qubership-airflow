@@ -191,11 +191,12 @@ jobs:
       - name: Wait until release appears in list API
         run: |
           for i in {1..24}; do
-            if gh release list --json tagName | jq -e '.[] | select(.tagName == "${{ inputs.release }}")' > /dev/null 2>&1; then
-              echo "Release found in list API"
+            FOUND=$(gh release list --limit 100 --json tagName | jq -r '.[] | select(.tagName == "${{ inputs.release }}") | .tagName')
+            if [ "$FOUND" = "${{ inputs.release }}" ]; then
+              echo "Release ${{ inputs.release }} found in list API"
               exit 0
             fi
-            echo "Waiting..."
+            echo "Attempt $i: not yet visible in list API, waiting 5s..."
             sleep 5
           done
           echo "Release not found after waiting"
