@@ -175,18 +175,7 @@ jobs:
 
       - name: Update Helm dependencies
         run: |
-          helm dependency update ./chart/helm/airflow   
-       
-      - name: "Release-drafter"
-        uses: netcracker/release-drafter@v1.0.1
-        with:
-          config-name: release-drafter-config.yml
-          publish: true
-          name: ${{ inputs.release }}
-          tag: ${{ inputs.release }}
-          version: ${{ inputs.release }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
+          helm dependency update ./chart/helm/airflow    
 
       - name: Run chart-releaser
          #continue-on-error: true
@@ -199,21 +188,31 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       
-      - name: Wait until release exists
+      - name: Wait until release appears in list API
         run: |
-          for i in {1..12}; do
-            if gh release view "${{ inputs.release }}" >/dev/null 2>&1; then
-              echo "Release found"
+          for i in {1..24}; do
+            if gh release list --json tagName | jq -e '.[] | select(.tagName == "${{ inputs.release }}")' > /dev/null 2>&1; then
+              echo "Release found in list API"
               exit 0
             fi
-            echo "Waiting for release to be created..."
+            echo "Waiting..."
             sleep 5
           done
-
           echo "Release not found after waiting"
           exit 1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Release-drafter"
+        uses: netcracker/release-drafter@v1.0.1
+        with:
+          config-name: release-drafter-config.yml
+          publish: true
+          name: ${{ inputs.release }}
+          tag: ${{ inputs.release }}
+          version: ${{ inputs.release }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Upload Assets
         uses: netcracker/qubership-workflow-hub/actions/assets-action@v2.4.0
