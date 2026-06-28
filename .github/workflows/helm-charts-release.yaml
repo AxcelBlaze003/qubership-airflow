@@ -175,7 +175,18 @@ jobs:
 
       - name: Update Helm dependencies
         run: |
-          helm dependency update ./chart/helm/airflow    
+          helm dependency update ./chart/helm/airflow   
+       
+      - name: "Release-drafter"
+        uses: netcracker/release-drafter@v1.0.1
+        with:
+          config-name: release-drafter-config.yml
+          publish: true
+          name: ${{ inputs.release }}
+          tag: ${{ inputs.release }}
+          version: ${{ inputs.release }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}       
 
       - name: Run chart-releaser
          #continue-on-error: true
@@ -203,17 +214,6 @@ jobs:
           exit 1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
-
-      - name: "Release-drafter"
-        uses: netcracker/release-drafter@v1.0.1
-        with:
-          config-name: release-drafter-config.yml
-          publish: true
-          name: ${{ inputs.release }}
-          tag: ${{ inputs.release }}
-          version: ${{ inputs.release }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Upload Assets
         uses: netcracker/qubership-workflow-hub/actions/assets-action@v2.4.0
