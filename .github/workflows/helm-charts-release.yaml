@@ -194,6 +194,7 @@ jobs:
             FOUND=$(gh release list --limit 100 --json tagName | jq -r '.[] | select(.tagName == "${{ inputs.release }}") | .tagName')
             if [ "$FOUND" = "${{ inputs.release }}" ]; then
               echo "Release ${{ inputs.release }} found in list API"
+              sleep 5
               exit 0
             fi
             echo "Attempt $i: not yet visible in list API, waiting 5s..."
