@@ -146,7 +146,7 @@ jobs:
         with:
           ref: release-${{ inputs.release }}
           download-artifact: false
-          dry-run: true
+          dry-run: false
           component: ${{ toJson(matrix.component) }}
           platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
           tags: "${{ env.IMAGE_VERSION }},latest"
@@ -188,25 +188,26 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
       
-      - name: Wait until release appears in list API
+      - name: Wait until release exists
         run: |
-          for i in {1..24}; do
-            FOUND=$(gh release list --limit 100 --json tagName | jq -r '.[] | select(.tagName == "${{ inputs.release }}") | .tagName')
-            if [ "$FOUND" = "${{ inputs.release }}" ]; then
-              echo "Release ${{ inputs.release }} found in list API"
-              sleep 5
+          for i in {1..12}; do
+            if gh release view "${{ inputs.release }}" >/dev/null 2>&1; then
+              echo "Release found"
+              echo "waiting for github releases to be updated"
+              sleep 60
               exit 0
             fi
-            echo "Attempt $i: not yet visible in list API, waiting 5s..."
+            echo "Waiting for release to be created..."
             sleep 5
           done
+
           echo "Release not found after waiting"
           exit 1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
 
       - name: "Release-drafter"
-        uses: netcracker/release-drafter@master
+        uses: netcracker/release-drafter@v1.0.1
         with:
           config-name: release-drafter-config.yml
           publish: true
